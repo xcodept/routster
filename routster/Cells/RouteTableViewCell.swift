@@ -2,8 +2,8 @@
 //  RouteTableViewCell.swift
 //  routster
 //
-//  Created by studium on 08.05.19.
-//  Copyright © 2019 xcodept. All rights reserved.
+//  Created by codefuse on 08.05.19.
+//  Copyright © 2019 codefuse. All rights reserved.
 //
 
 import UIKit
