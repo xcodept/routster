@@ -4,11 +4,11 @@ This is a proof-of-concept application, that calculates different routes to tour
 
 ## Installation
 - Clone or download the repository.
-		git clone https://github.com/xcodept/routster.git
-- Change to the project directory
-		cd <project-directory>
+	`git clone https://github.com/xcodept/routster.git`
+- Change to the project directory.
+	`cd <project-directory>`
 - Make sure you have CocoaPods installed, then install all necessary Pods.
-		pod install
+	`pod install`
 - Afterwards open the workspace and run the application.
 
 ## Features
@@ -31,13 +31,8 @@ This is a proof-of-concept application, that calculates different routes to tour
 
 #### Test Account
 _Komoot Demo Account_
-
 ![](https://raw.githubusercontent.com/xcodept/routster/master/screenshots/qr/email.png "email qr")
-
 Email: routster@vomoto.com
-
 Username: routster
-
 ![](https://raw.githubusercontent.com/xcodept/routster/master/screenshots/qr/pwd.png "pwd qr")
-
 Pwd: ybl9XHoHr9SbHMjRL1pmD0JG
