@@ -26,6 +26,7 @@ class MapViewController: UIViewController {
         }
     }
     private var routes = [AliasRoute]()
+    fileprivate var updatedUserLocation = false
     
     // MARK: - Outlets
     @IBOutlet weak var mapView: MGLMapView! {
@@ -245,10 +246,10 @@ extension MapViewController: MGLMapViewDelegate {
     
     // - User Location
     func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
-        if let userCoordinate = userLocation?.coordinate {
-            mapView.centerCoordinate = userCoordinate
-        }
-        // TODO: - set center coordinate only once
+        guard self.updatedUserLocation == false else { return }
+        guard let userCoordinate = userLocation?.coordinate, CLLocationCoordinate2DIsValid(userCoordinate) == true else { return }
+        mapView.centerCoordinate = userCoordinate
+        self.updatedUserLocation = true
     }
     
     // - Annotations
