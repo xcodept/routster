@@ -1,6 +1,12 @@
 # routster
 
 This is a proof-of-concept application, that calculates different routes to tours planned with [komoot](https://www.komoot.com "komoot website").
+**The app was implemented within 72 hours and does not always contain the best code solution.**  
+**Things that could be done differently with more time.**
+- Weigh exactly whether an external library makes sense or the corresponding component should rather be developed by yourself.
+- Better & consistent use of code patterns.
+- Auto-generate Swift code for resources to make them type-safe to use. (e.g. [SwiftGen](https://github.com/SwiftGen/SwiftGen)))
+- Code documentation for Swift and Objective-C classes (e.g. [Jazzy](https://github.com/realm/jazzy))
 
 ## Installation
 - Clone or download the repository.
