@@ -1,0 +1,78 @@
+PODS:
+  - Alamofire (4.8.1)
+  - CryptoSwift (0.13.1)
+  - DefaultsKit (0.0.9)
+  - LGButton (1.1.2)
+  - Mapbox-iOS-SDK (4.7.1)
+  - MapboxCoreNavigation (0.27.0):
+    - MapboxDirections.swift (~> 0.26.0)
+    - MapboxMobileEvents (~> 0.6.0)
+    - MapboxNavigationNative (~> 3.4.6)
+    - Turf (~> 0.3.0)
+  - MapboxDirections.swift (0.26.0):
+    - Polyline (~> 4.2)
+  - MapboxMobileEvents (0.6.0)
+  - MapboxNavigation (0.27.0):
+    - Mapbox-iOS-SDK (~> 4.3)
+    - MapboxCoreNavigation (= 0.27.0)
+    - MapboxSpeech (~> 0.1.0)
+    - Solar (~> 2.1)
+  - MapboxNavigationNative (3.4.12)
+  - MapboxSpeech (0.1.0)
+  - Polyline (4.2.0)
+  - Solar (2.1.0)
+  - SwiftGen (6.0.2)
+  - SwiftMessages (6.0.2):
+    - SwiftMessages/App (= 6.0.2)
+  - SwiftMessages/App (6.0.2)
+  - Turf (0.3.0)
+
+DEPENDENCIES:
+  - Alamofire (= 4.8.1)
+  - CryptoSwift
+  - DefaultsKit
+  - LGButton
+  - MapboxNavigation
+  - SwiftGen (~> 6.0)
+  - SwiftMessages
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - CryptoSwift
+    - DefaultsKit
+    - LGButton
+    - Mapbox-iOS-SDK
+    - MapboxCoreNavigation
+    - MapboxDirections.swift
+    - MapboxMobileEvents
+    - MapboxNavigation
+    - MapboxNavigationNative
+    - MapboxSpeech
+    - Polyline
+    - Solar
+    - SwiftGen
+    - SwiftMessages
+    - Turf
+
+SPEC CHECKSUMS:
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
+  DefaultsKit: e47d11c54a53c66f9e5c65a1992dead90bc7144f
+  LGButton: 0e07c243d1655b507502c3b9271d3c3a7c22dcaa
+  Mapbox-iOS-SDK: f9292a75e8cd5eb828f4432623bfc48aac42146a
+  MapboxCoreNavigation: 2db374b84cbc570c34d65c6f43a046a26f87e3a6
+  MapboxDirections.swift: a9c923dc7d1a36b8ecc6cbdc77a22f932dc518f3
+  MapboxMobileEvents: 0218869f556a7fdac9f869e2f9c10e8c6dd7eed5
+  MapboxNavigation: 983638887ace6ebae6e918836ff8a8b65fd254af
+  MapboxNavigationNative: f836f10df1fa8b4aeca554b8593b75ceb72c8150
+  MapboxSpeech: d7569ee91dd8bdca3ef8d19b6828e8754c1073ec
+  Polyline: 3d69f75bb136357e27291d439d0436c6ebda57a4
+  Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
+  SwiftGen: e5b047067aa84082826a0c4f1c4c2ddc95bcf74c
+  SwiftMessages: 8b3cc68dba2f1c91aac1a74c90b10287aac35371
+  Turf: c6bdf62d6a70c647874f295dd1cf4eefc0c3e9e6
+
+PODFILE CHECKSUM: 948fdc657356f90dc8f7211f57232aae77442a70
+
+COCOAPODS: 1.6.1
