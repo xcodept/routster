@@ -30,9 +30,9 @@ This is a proof-of-concept application, that calculates different routes to tour
 ![](https://raw.githubusercontent.com/xcodept/routster/master/screenshots/routster.8.png "Navigation")
 
 #### Test Account
-_Komoot Demo Account_
-![](https://raw.githubusercontent.com/xcodept/routster/master/screenshots/qr/email.png "email qr")
-Email: routster@vomoto.com
-Username: routster
-![](https://raw.githubusercontent.com/xcodept/routster/master/screenshots/qr/pwd.png "pwd qr")
-Pwd: ybl9XHoHr9SbHMjRL1pmD0JG
+_Komoot Demo Account_  
+Email: routster@vomoto.com  
+![Email](https://raw.githubusercontent.com/xcodept/routster/master/screenshots/qr/email.png "email qr")  
+Username: routster  
+Pwd: ybl9XHoHr9SbHMjRL1pmD0JG  
+![Pwd](https://raw.githubusercontent.com/xcodept/routster/master/screenshots/qr/pwd.png "pwd qr")  
