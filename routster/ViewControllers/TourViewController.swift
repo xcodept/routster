@@ -50,15 +50,15 @@ class TourViewController: RoutsterViewController {
     }
     
     // MARK: - Accessors
-    internal func setTour(tour: Tour) {
+    internal func setTour(_ tour: Tour) {
         self.tour = tour
     }
     
-    internal func setRoutes(routes: [Route]) {
+    internal func setRoutes(_ routes: [Route]) {
         self.routes = routes
     }
     
-    internal func addRoute(route: Route) {
+    internal func addRoute(_ route: Route) {
         if self.routes != nil {
             self.routes?.append(route)
         } else {

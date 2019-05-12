@@ -210,8 +210,8 @@ class MapViewController: RoutsterViewController {
             toursViewController.delegate = self
         } else if let tourViewController = segue.destination as? TourViewController, let routes = sender as? [AliasRoute] {
             for route in routes {
-                tourViewController.addRoute(route: route.route)
-                tourViewController.setTour(tour: route.tour) // *not perforant, because the variable is overwritten several times.*
+                tourViewController.addRoute(route.route)
+                tourViewController.setTour(route.tour) // *not perforant, because the variable is overwritten several times.*
             }
         }
     }

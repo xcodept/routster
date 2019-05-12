@@ -17,7 +17,7 @@ class TourTableViewCell: UITableViewCell {
     // MARK: - Properties
 
     // MARK: - Methods
-    public func setTour(tour: Tour) {
+    public func set(tour: Tour) {
         self.tourNameLabel.text = tour.name
         self.tourInfoLabel.text = "\(String(format: "%C", UniChar(0xf140))): \((tour.distance/1000).rounded(toPlaces: 2)) km \(String(format: "%C", UniChar(0xf017))): \((tour.duration/60/60).rounded(toPlaces: 2)) h \(String(format: "%C", UniChar(0xf1ae))): \(tour.sport)"
         self.accessoryType = (tour.isSelected == true) ? .checkmark : .none
