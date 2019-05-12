@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A3520FF22883B7C0044A608 /* RoutsterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3520FE22883B7C0044A608 /* RoutsterViewController.swift */; };
+		0A35210822884BD60044A608 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A35210622884BD60044A608 /* Localizable.strings */; };
+		0A35210B22884CCD0044A608 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A35210922884CCC0044A608 /* Assets.swift */; };
+		0A35210C22884CCD0044A608 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A35210A22884CCC0044A608 /* Strings.swift */; };
 		0A3C7E4822805FAE00F9BE8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3C7E4722805FAE00F9BE8A /* AppDelegate.swift */; };
 		0A3C7E4A22805FAE00F9BE8A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3C7E4922805FAE00F9BE8A /* MapViewController.swift */; };
 		0A3C7E4D22805FAE00F9BE8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A3C7E4B22805FAE00F9BE8A /* Main.storyboard */; };
@@ -33,16 +37,22 @@
 		0A52673E22819E5300C2D6A5 /* TourTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A52673C22819E5300C2D6A5 /* TourTableViewCell.xib */; };
 		0A5267402281AF1F00C2D6A5 /* Double+Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A52673F2281AF1F00C2D6A5 /* Double+Round.swift */; };
 		0A5267422281C3E600C2D6A5 /* Color+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5267412281C3E600C2D6A5 /* Color+Random.swift */; };
+		0A5F483122886AC9009C0205 /* StoryboardScenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F482F22886AC9009C0205 /* StoryboardScenes.swift */; };
+		0A5F483222886AC9009C0205 /* StoryboardSegues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F483022886AC9009C0205 /* StoryboardSegues.swift */; };
 		97E9BFF4410DE35D3489BAE0 /* Pods_routster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F76CC638B91A93AF035B44 /* Pods_routster.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A3520FE22883B7C0044A608 /* RoutsterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutsterViewController.swift; sourceTree = "<group>"; };
+		0A35210422884B810044A608 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0A35210522884B820044A608 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0A35210722884BD60044A608 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0A35210922884CCC0044A608 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		0A35210A22884CCC0044A608 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		0A3C7E4422805FAE00F9BE8A /* routster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = routster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A3C7E4722805FAE00F9BE8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A3C7E4922805FAE00F9BE8A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		0A3C7E4C22805FAE00F9BE8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0A3C7E4E22805FB000F9BE8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		0A3C7E5122805FB000F9BE8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A3C7E5322805FB000F9BE8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A3C7E6C228068EB00F9BE8A /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		0A3C7E6E2280690500F9BE8A /* EndpointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointType.swift; sourceTree = "<group>"; };
@@ -65,6 +75,8 @@
 		0A52673C22819E5300C2D6A5 /* TourTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TourTableViewCell.xib; sourceTree = "<group>"; };
 		0A52673F2281AF1F00C2D6A5 /* Double+Round.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Round.swift"; sourceTree = "<group>"; };
 		0A5267412281C3E600C2D6A5 /* Color+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Random.swift"; sourceTree = "<group>"; };
+		0A5F482F22886AC9009C0205 /* StoryboardScenes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardScenes.swift; sourceTree = "<group>"; };
+		0A5F483022886AC9009C0205 /* StoryboardSegues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardSegues.swift; sourceTree = "<group>"; };
 		35F76CC638B91A93AF035B44 /* Pods_routster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_routster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6042190577911627DDB6647C /* Pods-routster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-routster.release.xcconfig"; path = "Target Support Files/Pods-routster/Pods-routster.release.xcconfig"; sourceTree = "<group>"; };
 		859279239BE1778881CA70C3 /* Pods-routster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-routster.debug.xcconfig"; path = "Target Support Files/Pods-routster/Pods-routster.debug.xcconfig"; sourceTree = "<group>"; };
@@ -82,6 +94,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A352101228844C00044A608 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				0A5F482F22886AC9009C0205 /* StoryboardScenes.swift */,
+				0A5F483022886AC9009C0205 /* StoryboardSegues.swift */,
+				0A35210922884CCC0044A608 /* Assets.swift */,
+				0A35210A22884CCC0044A608 /* Strings.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		0A3C7E3B22805FAE00F9BE8A = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				0A52673A22819A6200C2D6A5 /* DataSources */,
+				0A3520FE22883B7C0044A608 /* RoutsterViewController.swift */,
 				0A526734228178DA00C2D6A5 /* LoginViewController.swift */,
 				0A3C7E4922805FAE00F9BE8A /* MapViewController.swift */,
 				0A3C7E842280BD2C00F9BE8A /* ToursViewController.swift */,
@@ -213,9 +237,11 @@
 		0A3C7E672280615700F9BE8A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0A352101228844C00044A608 /* Generated */,
 				0A3C7E4B22805FAE00F9BE8A /* Main.storyboard */,
 				0A3C7E4E22805FB000F9BE8A /* Assets.xcassets */,
 				0A3C7E5022805FB000F9BE8A /* LaunchScreen.storyboard */,
+				0A35210622884BD60044A608 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -275,6 +301,7 @@
 				0A3C7E4122805FAE00F9BE8A /* Frameworks */,
 				0A3C7E4222805FAE00F9BE8A /* Resources */,
 				56A4B117EC12A8521F893475 /* [CP] Embed Pods Frameworks */,
+				0A3521002288428B0044A608 /* SwiftGen */,
 			);
 			buildRules = (
 			);
@@ -331,6 +358,7 @@
 				0A3C7E5222805FB000F9BE8A /* LaunchScreen.storyboard in Resources */,
 				0A3C7E4F22805FB000F9BE8A /* Assets.xcassets in Resources */,
 				0A3C7E83228094A900F9BE8A /* halle.gpx in Resources */,
+				0A35210822884BD60044A608 /* Localizable.strings in Resources */,
 				0A52673E22819E5300C2D6A5 /* TourTableViewCell.xib in Resources */,
 				0A3C7E4D22805FAE00F9BE8A /* Main.storyboard in Resources */,
 				0A4767742283196300C77379 /* RouteTableViewCell.xib in Resources */,
@@ -340,6 +368,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0A3521002288428B0044A608 /* SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftGen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/SwiftGen/bin/swiftgen\"\n";
+		};
 		2B8FEB25E777DCC047E7143D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -434,25 +480,38 @@
 				0A3C7E6D228068EB00F9BE8A /* Error.swift in Sources */,
 				0A3C7E7722806D7C00F9BE8A /* String+Base64.swift in Sources */,
 				0A3C7E7F2280895200F9BE8A /* Point.swift in Sources */,
+				0A5F483122886AC9009C0205 /* StoryboardScenes.swift in Sources */,
+				0A5F483222886AC9009C0205 /* StoryboardSegues.swift in Sources */,
 				0A52673722817FD900C2D6A5 /* UserDefaultsService.swift in Sources */,
+				0A35210B22884CCD0044A608 /* Assets.swift in Sources */,
 				0A52673D22819E5300C2D6A5 /* TourTableViewCell.swift in Sources */,
 				0A3C7E4822805FAE00F9BE8A /* AppDelegate.swift in Sources */,
 				0A47676E2282B61800C77379 /* AlertMessageService.swift in Sources */,
 				0A5267402281AF1F00C2D6A5 /* Double+Round.swift in Sources */,
 				0A3C7E7B228070FC00F9BE8A /* User.swift in Sources */,
+				0A3520FF22883B7C0044A608 /* RoutsterViewController.swift in Sources */,
 				0A3C7E752280696200F9BE8A /* APIManager.swift in Sources */,
 				0A52673922819A5E00C2D6A5 /* TableViewDataSource.swift in Sources */,
 				0A526735228178DA00C2D6A5 /* LoginViewController.swift in Sources */,
+				0A35210C22884CCD0044A608 /* Strings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		0A35210622884BD60044A608 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A35210722884BD60044A608 /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		0A3C7E4B22805FAE00F9BE8A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0A3C7E4C22805FAE00F9BE8A /* Base */,
+				0A35210422884B810044A608 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -460,7 +519,7 @@
 		0A3C7E5022805FB000F9BE8A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0A3C7E5122805FB000F9BE8A /* Base */,
+				0A35210522884B820044A608 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -589,7 +648,6 @@
 			baseConfigurationReference = 859279239BE1778881CA70C3 /* Pods-routster.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45FBYS239C;
 				INFOPLIST_FILE = routster/App/Info.plist;
@@ -611,7 +669,6 @@
 			baseConfigurationReference = 6042190577911627DDB6647C /* Pods-routster.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45FBYS239C;
 				INFOPLIST_FILE = routster/App/Info.plist;

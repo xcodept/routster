@@ -15,7 +15,7 @@ protocol ToursViewControllerDelegate {
 }
 
 // MARK: - ToursViewController
-class ToursViewController: UIViewController {
+class ToursViewController: RoutsterViewController {
 
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView! {

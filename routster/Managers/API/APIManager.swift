@@ -6,14 +6,24 @@
 //  Copyright © 2019 codefuse. All rights reserved.
 //
 
-import Foundation
 import Alamofire
 
 class APIManager {
     
     // MARK: - Typealis
-    typealias CompletionUser = (User?, Error?) -> Void
-    typealias CompletionTours = ([Tour]?, Error?) -> Void
+    typealias CompletionUser = (UserResult) -> Void
+    typealias CompletionTours = (ToursResult) -> Void
+    
+    // MARK: - Enum
+    enum UserResult {
+        case error(_ error: Error)
+        case success(_ success: User)
+    }
+    
+    enum ToursResult {
+        case error(_ error: Error)
+        case success(_ success: [Tour])
+    }
     
     // MARK: - Properties
     private let sessionManager: SessionManager
@@ -33,13 +43,25 @@ class APIManager {
     // MARK: - API methods
     func loginUser(email: String, password: String, completion: @escaping CompletionUser) {
         self.call(type: EndpointItem.login(email: email, password: password)) { (user: User?, error: Error?) in
-            completion(user, error)
+            if let user = user {
+                completion(UserResult.success(user))
+            } else if let error = error {
+                completion(UserResult.error(error))
+            } else {
+                fatalError() // MARK: - error handling
+            }
         }
     }
     
     func userTours(username: String, password: String, completion: @escaping CompletionTours) {
         self.call(type: EndpointItem.userTours(username: username, password: password)) { (tours: [Tour]?, error: Error?) in
-            completion(tours, error)
+            if let tours = tours {
+                completion(ToursResult.success(tours))
+            } else if let error = error {
+                completion(ToursResult.error(error))
+            } else {
+                fatalError() // MARK: - error handling
+            }
         }
     }
     
@@ -52,27 +74,19 @@ class APIManager {
                                     parameters: params,
                                     encoding: type.encoding,
                                     headers: type.headers).validate().responseJSON { data in
-                                        switch data.result {
-                                        case .success(_):
-                                            let decoder = JSONDecoder()
-                                            if let jsonData = data.data {
-                                                guard let result = try? decoder.decode(T.self, from: jsonData) else {
-                                                    handler(nil, self.handleError(data: data.data))
-                                                    return
-                                                }
-                                                handler(result, nil)
-                                            }
-                                        case .failure(_):
-                                            handler(nil, self.handleError(data: data.data))
-                                        }
+                                        let error = self.convert(data: data.data) as Error?
+                                        let object = self.convert(data: data.data) as T?
+                                        handler(object, error)
         }
     }
     
-    private func handleError(data: Data?) -> Error? {
+    private func convert<T: Decodable>(data: Data?) -> T? {
         let decoder = JSONDecoder()
-        if let jsonData = data, let error = try? decoder.decode(Error.self, from: jsonData) {
-            return error
+        guard let objectData = data, let object = try? decoder.decode(T.self, from: objectData) else {
+
+            return nil
         }
-        return nil
+        
+        return object
     }
 }

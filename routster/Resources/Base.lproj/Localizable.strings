@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  routster
+
+  Created by studium on 12.05.19.
+  Copyright © 2019 xcodept. All rights reserved.
+*/
+
+/* Textfield Placeholder */
+"email" = "email";
+"password" = "password";
+
+/* Login VC */
+"loginDescriptionLabelText" = "Please log in with your komoot user account. This is needed to access your planned tours.";
+"connectLabelText" = "or connect with";
+
+/* Map VC */
+"messageLabelText" = "Please select the tours to which you want to calculate the current route and travel time.";
+
+/* Messages */
+"error" = "error";
+"note" = "note";
+"featureNotImplemented" = "This feature is not yet implemented in the current version.";
+"unexpectedError" = "An unexpected error has occurred. Please try again later.";
+"locationAccess" = "Please make sure that you have allowed access to your location.";
+"loggedOutSuccessfully" = "You have been logged out successfully.";

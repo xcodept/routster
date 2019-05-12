@@ -6,11 +6,6 @@
 //  Copyright © 2019 codefuse. All rights reserved.
 //
 
-import Foundation
-import UIKit
-//import Mapbox
-//import MapboxCoreNavigation
-//import MapboxNavigation
 import MapboxDirections
 
 class TableViewDataSource<Model>: NSObject, UITableViewDataSource {
@@ -62,7 +57,11 @@ extension TableViewDataSource where Model == Tour {
             models: tours,
             reuseIdentifier: reuseIdentifier) { (tour, cell) in
                 if let cell = cell as? TourTableViewCell {
-                    cell.setTour(tour: tour)
+                    cell.set(name: tour.name,
+                             distance: tour.distance,
+                             duration: tour.duration,
+                             sport: tour.sport,
+                             isSelected: tour.isSelected)
                 }
         }
     }
@@ -77,7 +76,7 @@ extension TableViewDataSource where Model == Route {
             models: routes,
             reuseIdentifier: reuseIdentifier) { (route, cell) in
                 if let cell = cell as? RouteTableViewCell {
-                    cell.setRoute(distance: route.distance, duration: route.expectedTravelTime)
+                    cell.set(distance: route.distance, duration: route.expectedTravelTime)
                 }
         }
     }

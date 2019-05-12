@@ -1,0 +1,19 @@
+input_dir: routster/Resources/
+output_dir: routster/Resources/Generated/
+strings:
+  inputs: Base.lproj/Localizable.strings
+  outputs:
+    - templateName: structured-swift4
+      output: Strings.swift
+xcassets:
+  inputs: Assets.xcassets
+  outputs:
+    - templateName: swift4
+      output: Assets.swift
+ib:
+  inputs: Base.lproj/Main.storyboard
+  outputs:
+    - templateName: scenes-swift4
+      output: StoryboardScenes.swift
+    - templateName: segues-swift4
+      output: StoryboardSegues.swift

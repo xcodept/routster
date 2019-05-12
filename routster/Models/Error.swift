@@ -6,8 +6,6 @@
 //  Copyright © 2019 codefuse. All rights reserved.
 //
 
-import Foundation
-
 class Error: Codable {
     let message: String
     let code: Int?

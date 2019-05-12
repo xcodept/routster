@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Mapbox
-import MapboxCoreNavigation
 import MapboxNavigation
 import MapboxDirections
 
@@ -19,7 +17,7 @@ protocol TourViewControllerDelegate {
 }
 
 // MARK: - TourViewController
-class TourViewController: UIViewController {
+class TourViewController: RoutsterViewController {
 
     // MARK: - Properties
     private var tour: Tour?
@@ -52,15 +50,15 @@ class TourViewController: UIViewController {
     }
     
     // MARK: - Accessors
-    internal func setTour(tour: Tour) {
+    internal func setTour(_ tour: Tour) {
         self.tour = tour
     }
     
-    internal func setRoutes(routes: [Route]) {
+    internal func setRoutes(_ routes: [Route]) {
         self.routes = routes
     }
     
-    internal func addRoute(route: Route) {
+    internal func addRoute(_ route: Route) {
         if self.routes != nil {
             self.routes?.append(route)
         } else {
@@ -85,7 +83,7 @@ extension TourViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath), let routes = self.routes, routes.count > indexPath.row {
+        if let _ = tableView.cellForRow(at: indexPath), let routes = self.routes, routes.count > indexPath.row {
             let route = routes[indexPath.row]
             let navigationViewController = NavigationViewController(for: route)
             self.present(navigationViewController, animated: true) {

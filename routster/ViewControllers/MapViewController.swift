@@ -9,13 +9,12 @@
 import UIKit
 import Mapbox
 import MapboxCoreNavigation
-import MapboxNavigation
 import MapboxDirections
 
-class MapViewController: UIViewController {
+class MapViewController: RoutsterViewController {
     
     // MARK: - Typealis
-    typealias CompletionTours = ([Tour]?, Error?) -> Void
+    typealias CompletionTours = (APIManager.ToursResult) -> Void
     typealias AliasRoute = (tour: Tour, route: Route, sourceIdentifier: String, layerIdentifier: String)
     
     // MARK: - Properties
@@ -31,20 +30,20 @@ class MapViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet weak var mapView: MGLMapView! {
         didSet {
-            mapView.delegate = self
-            mapView.showsUserLocation = true
-            mapView.zoomLevel = 5
-            mapView.centerCoordinate = CLLocationCoordinate2D(latitude: 52.390569, longitude: 13.064473) // Location: Potsdam
+            self.mapView.delegate = self
+            self.mapView.showsUserLocation = true
+            self.mapView.zoomLevel = 5
+            self.mapView.centerCoordinate = CLLocationCoordinate2D(latitude: 52.390569, longitude: 13.064473) // Location: Potsdam
         }
     }
     @IBOutlet weak var messageView: UIView! {
         didSet {
-            messageView.isHidden = true
+            self.messageView.isHidden = true
         }
     }
     @IBOutlet weak var messageLabel: UILabel! {
         didSet {
-//            messageLabel.text = ""
+            self.messageLabel.text = L10n.messageLabelText
         }
     }
     
@@ -68,25 +67,24 @@ class MapViewController: UIViewController {
                 self.hideUnselectedTours(tours: tours)
                 self.displaySelectedTours(tours: tours)
             } else {
-                self.loadTours(username: username, password: password) { (tours, error) in
-                    if let tours = tours {
-                        self.tours = tours
-                        self.hideUnselectedTours(tours: tours)
-                        self.displaySelectedTours(tours: tours)
-                    } else if let error = error {
-                        if let code = error.code, let errorMessage = error.error {
-                            AlertMessageService.showAlertBottom(title: "Error: \(code)/\(errorMessage)", body: error.message, icon: "", theme: .error)
-                        } else {
-                            AlertMessageService.showAlertBottom(title: "Error", body: error.message, icon: "", theme: .error)
+                self.loadTours(username: username, password: password) { [weak self]  (toursResult) in
+                    switch toursResult {
+                    case .success(let tours):
+                        self?.tours = tours
+                        self?.hideUnselectedTours(tours: tours)
+                        self?.displaySelectedTours(tours: tours)
+                    case .error(let error):
+                        guard let code = error.code, let errorMessage = error.error else  {
+                            AlertMessageService.showAlertBottom(title: L10n.error.localizedUppercase, body: error.message, icon: "", theme: .error)
+                            return
                         }
-                    } else {
-                        // TODO: - error handling
+                        AlertMessageService.showAlertBottom(title: "\(L10n.error.localizedUppercase): \(code)/\(errorMessage)", body: error.message, icon: "", theme: .error)
                     }
                 }
             }
         } else {
             // User is not authenticated
-            self.performSegue(withIdentifier: "presentLoginViewController", sender: self)
+            self.performSegue(withIdentifier: StoryboardSegue.Main.presentLoginViewController.rawValue, sender: self)
         }
     }
     
@@ -94,8 +92,8 @@ class MapViewController: UIViewController {
     // MARK: -- Data
     private func loadTours(username: String, password: String, completion: @escaping CompletionTours) {
         
-        APIManager.shared.userTours(username: username, password: password) { (tours, error) in
-            completion(tours, error)
+        APIManager.shared.userTours(username: username, password: password) { (tourResult) in
+            completion(tourResult)
         }
     }
     
@@ -111,7 +109,7 @@ class MapViewController: UIViewController {
                                         if let routes = routes {
                                             self.drawTour(tour: tour, routes: routes)
                                         } else if let error = error {
-                                            AlertMessageService.showAlertBottom(title: "Error", body: "An unexpected error has occurred. Please try again later. - \(error.localizedDescription)", icon: "🦠", theme: .error)
+                                            AlertMessageService.showAlertBottom(title: L10n.error.localizedUppercase, body: "\(L10n.unexpectedError) - \(error.localizedDescription)", icon: "🦠", theme: .error)
                                         } else {
                                             // TODO: - error handling
                                         }
@@ -123,7 +121,7 @@ class MapViewController: UIViewController {
 //                                        }
                 })
             } else if let userLocationCoordinate = self.mapView.userLocation?.coordinate, CLLocationCoordinate2DIsValid(userLocationCoordinate) == false {
-                AlertMessageService.showAlertBottom(title: "Error", body: "Please make sure that you have allowed access to your location.", icon: "📍", theme: .error)
+                AlertMessageService.showAlertBottom(title: L10n.error.localizedUppercase, body: L10n.locationAccess, icon: "📍", theme: .error)
             }
         }
     }
@@ -211,19 +209,19 @@ class MapViewController: UIViewController {
             toursViewController.delegate = self
         } else if let tourViewController = segue.destination as? TourViewController, let routes = sender as? [AliasRoute] {
             for route in routes {
-                tourViewController.addRoute(route: route.route)
-                tourViewController.setTour(tour: route.tour) // *not perforant, because the variable is overwritten several times.*
+                tourViewController.addRoute(route.route)
+                tourViewController.setTour(route.tour) // *not perforant, because the variable is overwritten several times.*
             }
         }
     }
     
     // MARK: - Action methods
     @IBAction func toursButtonDidClicked(_ sender: Any) {
-        self.performSegue(withIdentifier: "presentToursViewController", sender: self)
+        self.performSegue(withIdentifier: StoryboardSegue.Main.presentToursViewController.rawValue, sender: self)
     }
     
     @IBAction func logoutButtonDidClicked(_ sender: Any) {
-        AlertMessageService.showAlertBottom(title: "Note", body: "You have been logged out successfully.", icon: "🚪", theme: .info)
+        AlertMessageService.showAlertBottom(title: L10n.note, body: L10n.loggedOutSuccessfully, icon: "🚪", theme: .info)
         
         UserDefaultsService.id = nil
         UserDefaultsService.password = nil
@@ -256,7 +254,7 @@ extension MapViewController: MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         let filteredRoutes = self.routes.filter( { CLLocationCoordinate2D(latitude: $0.tour.startpoint.y, longitude: $0.tour.startpoint.x) == annotation.coordinate } )
         print(filteredRoutes)
-        self.performSegue(withIdentifier: "presentTourViewController", sender: filteredRoutes)
+        self.performSegue(withIdentifier: StoryboardSegue.Main.presentTourViewController.rawValue, sender: filteredRoutes)
     }
 }
 
