@@ -57,7 +57,11 @@ extension TableViewDataSource where Model == Tour {
             models: tours,
             reuseIdentifier: reuseIdentifier) { (tour, cell) in
                 if let cell = cell as? TourTableViewCell {
-                    cell.set(tour: tour)
+                    cell.set(name: tour.name,
+                             distance: tour.distance,
+                             duration: tour.duration,
+                             sport: tour.sport,
+                             isSelected: tour.isSelected)
                 }
         }
     }

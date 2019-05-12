@@ -14,7 +14,7 @@ import MapboxDirections
 class MapViewController: RoutsterViewController {
     
     // MARK: - Typealis
-    typealias CompletionTours = ([Tour]?, Error?) -> Void
+    typealias CompletionTours = (APIManager.ToursResult) -> Void
     typealias AliasRoute = (tour: Tour, route: Route, sourceIdentifier: String, layerIdentifier: String)
     
     // MARK: - Properties
@@ -67,19 +67,18 @@ class MapViewController: RoutsterViewController {
                 self.hideUnselectedTours(tours: tours)
                 self.displaySelectedTours(tours: tours)
             } else {
-                self.loadTours(username: username, password: password) { (tours, error) in
-                    if let tours = tours {
-                        self.tours = tours
-                        self.hideUnselectedTours(tours: tours)
-                        self.displaySelectedTours(tours: tours)
-                    } else if let error = error {
-                        if let code = error.code, let errorMessage = error.error {
-                            AlertMessageService.showAlertBottom(title: "\(L10n.error.localizedUppercase): \(code)/\(errorMessage)", body: error.message, icon: "", theme: .error)
-                        } else {
+                self.loadTours(username: username, password: password) { [weak self]  (toursResult) in
+                    switch toursResult {
+                    case .success(let tours):
+                        self?.tours = tours
+                        self?.hideUnselectedTours(tours: tours)
+                        self?.displaySelectedTours(tours: tours)
+                    case .error(let error):
+                        guard let code = error.code, let errorMessage = error.error else  {
                             AlertMessageService.showAlertBottom(title: L10n.error.localizedUppercase, body: error.message, icon: "", theme: .error)
+                            return
                         }
-                    } else {
-                        // TODO: - error handling
+                        AlertMessageService.showAlertBottom(title: "\(L10n.error.localizedUppercase): \(code)/\(errorMessage)", body: error.message, icon: "", theme: .error)
                     }
                 }
             }
@@ -93,8 +92,8 @@ class MapViewController: RoutsterViewController {
     // MARK: -- Data
     private func loadTours(username: String, password: String, completion: @escaping CompletionTours) {
         
-        APIManager.shared.userTours(username: username, password: password) { (tours, error) in
-            completion(tours, error)
+        APIManager.shared.userTours(username: username, password: password) { (tourResult) in
+            completion(tourResult)
         }
     }
     

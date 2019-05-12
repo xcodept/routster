@@ -44,29 +44,36 @@ class LoginViewController: RoutsterViewController {
         super.viewDidLoad()
     }
     
+    // MARK: - Configuration handler
+    private func handle(user: User) {
+        UserDefaultsService.email = user.email
+        UserDefaultsService.id = user.username
+        UserDefaultsService.password = user.password
+        
+        self.dismiss(animated: true, completion: {
+            self.loginButton.isLoading = false
+        })
+    }
+    
+    private func handle(error: Error) {
+        if let code = error.code, let errorMessage = error.error {
+            AlertMessageService.showAlertBottom(title: "\(L10n.error.localizedUppercase): \(code)/\(errorMessage)", body: error.message, icon: nil, theme: .error)
+        } else {
+            AlertMessageService.showAlertBottom(title: L10n.error.localizedUppercase, body: error.message, icon: nil, theme: .error)
+        }
+        self.loginButton.isLoading = false
+    }
+    
     // MARK: - Action methods
     @IBAction func loginButtonDidClicked(_ sender: Any) {
         self.loginButton.isLoading = true
         if let username = self.usernameTextField.text, let password = self.passwordTextField.text {
-            APIManager.shared.loginUser(email: username, password: password) { (user, error) in
-                if let user = user {
-                    UserDefaultsService.email = user.email
-                    UserDefaultsService.id = user.username
-                    UserDefaultsService.password = user.password
-                    
-                    self.dismiss(animated: true, completion: {
-                        self.loginButton.isLoading = false
-                    })
-                } else if let error = error {
-                    if let code = error.code, let errorMessage = error.error {
-                        AlertMessageService.showAlertBottom(title: "\(L10n.error.localizedUppercase): \(code)/\(errorMessage)", body: error.message, icon: nil, theme: .error)
-                    } else {
-                        AlertMessageService.showAlertBottom(title: L10n.error.localizedUppercase, body: error.message, icon: nil, theme: .error)
-                    }
-                    self.loginButton.isLoading = false
-                } else {
-                    // TODO: - error handling
-                    self.loginButton.isLoading = false
+            APIManager.shared.loginUser(email: username, password: password) { [weak self] (userResult) in
+                switch userResult {
+                case .success(let user):
+                    self?.handle(user: user)
+                case .error(let error):
+                    self?.handle(error: error)
                 }
             }
         }
