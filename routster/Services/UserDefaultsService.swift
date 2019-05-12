@@ -33,7 +33,7 @@ class UserDefaultsService {
             
             return nil
         }
-        set(newValue) {
+        set {
             if let newValue = newValue {
                 do {
                     let cipher = try AES(key: UserDefaultsService.k3y, iv: UserDefaultsService.iv).encrypt(Array(newValue.utf8))
@@ -60,7 +60,7 @@ class UserDefaultsService {
             
             return nil
         }
-        set(newValue) {
+        set {
             if let newValue = newValue {
                 do {
                     let cipher = try AES(key: UserDefaultsService.k3y, iv: UserDefaultsService.iv).encrypt(Array(newValue.utf8))
@@ -87,7 +87,7 @@ class UserDefaultsService {
             
             return nil
         }
-        set(newValue) {
+        set {
             if let newValue = newValue {
                 do {
                     let cipher = try AES(key: UserDefaultsService.k3y, iv: UserDefaultsService.iv).encrypt(Array(newValue.utf8))
