@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Mapbox
-import MapboxCoreNavigation
 import MapboxNavigation
 import MapboxDirections
 

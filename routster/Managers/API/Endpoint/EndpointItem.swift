@@ -6,8 +6,6 @@
 //  Copyright © 2019 codefuse. All rights reserved.
 //
 
-import Foundation
-import UIKit
 import Alamofire
 
 enum EndpointItem {

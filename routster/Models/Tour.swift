@@ -6,8 +6,6 @@
 //  Copyright © 2019 codefuse. All rights reserved.
 //
 
-import Foundation
-
 struct Tour: Codable {
     let id: Int
     let name: String
