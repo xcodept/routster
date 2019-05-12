@@ -85,7 +85,7 @@ extension TourViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath), let routes = self.routes, routes.count > indexPath.row {
+        if let _ = tableView.cellForRow(at: indexPath), let routes = self.routes, routes.count > indexPath.row {
             let route = routes[indexPath.row]
             let navigationViewController = NavigationViewController(for: route)
             self.present(navigationViewController, animated: true) {
