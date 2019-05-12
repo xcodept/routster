@@ -23,26 +23,26 @@ class UserDefaultsService {
     public class var email: String? /* user generated */ {
         get {
             guard let cipher = Defaults.shared.get(for: UserDefaultsService.emailKey) else { return nil }
+            
             do {
                 let value = try AES(key: UserDefaultsService.k3y, iv: UserDefaultsService.iv).decrypt(cipher)
                 
                 return String(bytes: value, encoding: .utf8)
             } catch {
-                // MARK: - error handling
+                return nil
             }
-            
-            return nil
         }
         set {
-            if let newValue = newValue {
-                do {
-                    let cipher = try AES(key: UserDefaultsService.k3y, iv: UserDefaultsService.iv).encrypt(Array(newValue.utf8))
-                    Defaults.shared.set(cipher, for: UserDefaultsService.emailKey)
-                } catch {
-                    // MARK: - error handling
-                }
-            } else {
+            guard let newValue = newValue else {
                 Defaults.shared.clear(UserDefaultsService.emailKey)
+                return
+            }
+            
+            do {
+                let cipher = try AES(key: UserDefaultsService.k3y, iv: UserDefaultsService.iv).encrypt(Array(newValue.utf8))
+                Defaults.shared.set(cipher, for: UserDefaultsService.emailKey)
+            } catch {
+                // MARK: - error handling
             }
         }
     }
@@ -50,26 +50,26 @@ class UserDefaultsService {
     public class var id: String? /* api generated */ {
         get {
             guard let cipher = Defaults.shared.get(for: UserDefaultsService.idKey) else { return nil }
+            
             do {
                 let value = try AES(key: UserDefaultsService.k3y, iv: UserDefaultsService.iv).decrypt(cipher)
                 
                 return String(bytes: value, encoding: .utf8)
             } catch {
-                // MARK: - error handling
+                return nil
             }
-            
-            return nil
         }
         set {
-            if let newValue = newValue {
-                do {
-                    let cipher = try AES(key: UserDefaultsService.k3y, iv: UserDefaultsService.iv).encrypt(Array(newValue.utf8))
-                    Defaults.shared.set(cipher, for: UserDefaultsService.idKey)
-                } catch {
-                    // MARK: - error handling
-                }
-            } else {
+            guard let newValue = newValue else {
                 Defaults.shared.clear(UserDefaultsService.idKey)
+                return
+            }
+            
+            do {
+                let cipher = try AES(key: UserDefaultsService.k3y, iv: UserDefaultsService.iv).encrypt(Array(newValue.utf8))
+                Defaults.shared.set(cipher, for: UserDefaultsService.idKey)
+            } catch {
+                // MARK: - error handling
             }
         }
     }
@@ -77,26 +77,26 @@ class UserDefaultsService {
     public class var password: String? /* api generated */ {
         get {
             guard let cipher = Defaults.shared.get(for: UserDefaultsService.passwordKey) else { return nil }
+            
             do {
                 let value = try AES(key: UserDefaultsService.k3y, iv: UserDefaultsService.iv).decrypt(cipher)
                 
                 return String(bytes: value, encoding: .utf8)
             } catch {
-                // MARK: - error handling
+                return nil
             }
-            
-            return nil
         }
         set {
-            if let newValue = newValue {
-                do {
-                    let cipher = try AES(key: UserDefaultsService.k3y, iv: UserDefaultsService.iv).encrypt(Array(newValue.utf8))
-                    Defaults.shared.set(cipher, for: UserDefaultsService.passwordKey)
-                } catch {
-                    // MARK: - error handling
-                }
-            } else {
+            guard let newValue = newValue else {
                 Defaults.shared.clear(UserDefaultsService.passwordKey)
+                return
+            }
+
+            do {
+                let cipher = try AES(key: UserDefaultsService.k3y, iv: UserDefaultsService.iv).encrypt(Array(newValue.utf8))
+                Defaults.shared.set(cipher, for: UserDefaultsService.passwordKey)
+            } catch {
+                // MARK: - error handling
             }
         }
     }
