@@ -1,22 +1,31 @@
-platform :ios, '11.3'
+source 'https://github.com/CocoaPods/Specs.git'
 
-target 'routster' do
-  use_frameworks!
+platform :ios,'11.3'
+use_frameworks!
+inhibit_all_warnings!
 
-  # Pods for routster
+def pods
+  
   # Network
-  pod 'Alamofire', '4.8.1'
+  pod 'Alamofire', '~> 4.8'
   
   # Map
-  pod 'MapboxNavigation'
+  pod 'MapboxNavigation', '~> 0.32'
   
-  # UI
-  pod 'LGButton', '1.1.2'
-  pod 'SwiftMessages', '6.0.2'
+  # Layout / UI
+  pod 'LGButton', '~> 1.1'
+  pod 'SwiftMessages', '~> 6.0'
   
-  # Misc
-  pod 'CryptoSwift', '0.13.1'
-  pod 'DefaultsKit', '0.0.9'
+  # Utility
+  pod 'CryptoSwift', '~> 1.0'
+  pod 'DefaultsKit', '~> 0.2'
+  
+  # Code Generator / Analyser
   pod 'SwiftGen', '~> 6.0'
+  
+end
 
+target 'routster' do
+  # Pods for routster
+  pods
 end

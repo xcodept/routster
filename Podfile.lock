@@ -1,40 +1,40 @@
 PODS:
-  - Alamofire (4.8.1)
-  - CryptoSwift (0.13.1)
-  - DefaultsKit (0.0.9)
-  - LGButton (1.1.2)
-  - Mapbox-iOS-SDK (4.7.1)
-  - MapboxCoreNavigation (0.27.0):
-    - MapboxDirections.swift (~> 0.26.0)
-    - MapboxMobileEvents (~> 0.6.0)
-    - MapboxNavigationNative (~> 3.4.6)
+  - Alamofire (4.8.2)
+  - CryptoSwift (1.0.0)
+  - DefaultsKit (0.2.0)
+  - LGButton (1.1.6)
+  - Mapbox-iOS-SDK (4.10.0)
+  - MapboxCoreNavigation (0.32.0):
+    - MapboxDirections.swift (~> 0.27.3)
+    - MapboxMobileEvents (~> 0.9.3)
+    - MapboxNavigationNative (~> 6.1.3)
     - Turf (~> 0.3.0)
-  - MapboxDirections.swift (0.26.0):
+  - MapboxDirections.swift (0.27.3):
     - Polyline (~> 4.2)
-  - MapboxMobileEvents (0.6.0)
-  - MapboxNavigation (0.27.0):
+  - MapboxMobileEvents (0.9.3)
+  - MapboxNavigation (0.32.0):
     - Mapbox-iOS-SDK (~> 4.3)
-    - MapboxCoreNavigation (= 0.27.0)
+    - MapboxCoreNavigation (= 0.32.0)
     - MapboxSpeech (~> 0.1.0)
     - Solar (~> 2.1)
-  - MapboxNavigationNative (3.4.12)
-  - MapboxSpeech (0.1.0)
-  - Polyline (4.2.0)
+  - MapboxNavigationNative (6.1.3)
+  - MapboxSpeech (0.1.1)
+  - Polyline (4.2.1)
   - Solar (2.1.0)
-  - SwiftGen (6.0.2)
+  - SwiftGen (6.1.0)
   - SwiftMessages (6.0.2):
     - SwiftMessages/App (= 6.0.2)
   - SwiftMessages/App (6.0.2)
   - Turf (0.3.0)
 
 DEPENDENCIES:
-  - Alamofire (= 4.8.1)
-  - CryptoSwift
-  - DefaultsKit
-  - LGButton
-  - MapboxNavigation
+  - Alamofire (~> 4.8)
+  - CryptoSwift (~> 1.0)
+  - DefaultsKit (~> 0.2)
+  - LGButton (~> 1.1)
+  - MapboxNavigation (~> 0.32)
   - SwiftGen (~> 6.0)
-  - SwiftMessages
+  - SwiftMessages (~> 6.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -56,23 +56,23 @@ SPEC REPOS:
     - Turf
 
 SPEC CHECKSUMS:
-  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
-  CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
-  DefaultsKit: e47d11c54a53c66f9e5c65a1992dead90bc7144f
-  LGButton: 0e07c243d1655b507502c3b9271d3c3a7c22dcaa
-  Mapbox-iOS-SDK: f9292a75e8cd5eb828f4432623bfc48aac42146a
-  MapboxCoreNavigation: 2db374b84cbc570c34d65c6f43a046a26f87e3a6
-  MapboxDirections.swift: a9c923dc7d1a36b8ecc6cbdc77a22f932dc518f3
-  MapboxMobileEvents: 0218869f556a7fdac9f869e2f9c10e8c6dd7eed5
-  MapboxNavigation: 983638887ace6ebae6e918836ff8a8b65fd254af
-  MapboxNavigationNative: f836f10df1fa8b4aeca554b8593b75ceb72c8150
-  MapboxSpeech: d7569ee91dd8bdca3ef8d19b6828e8754c1073ec
-  Polyline: 3d69f75bb136357e27291d439d0436c6ebda57a4
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
+  DefaultsKit: 6c767941b2c3fe34c4d70e300e6c3b80c94964dd
+  LGButton: 9f0a7f9d3030e3f504108342f6b66d64a429371b
+  Mapbox-iOS-SDK: 8b1b777de7de373cdf000994c91af101ef886477
+  MapboxCoreNavigation: bcfc8625124c50774140f49b09f59be6aa0a40ab
+  MapboxDirections.swift: af3d8bc8cd80ed6e498dd6ed933f3c348799e1e2
+  MapboxMobileEvents: dea3b845b1a8528def7150dedf0cedefc6dfe284
+  MapboxNavigation: a8200b70ae9481ba245a6cfe8b48263421f7eff1
+  MapboxNavigationNative: c7340cdfcb28f88aa02b6e3896151f4cd897f323
+  MapboxSpeech: 59b3984d3f433a443d24acf53097f918c5cc70f9
+  Polyline: 0e9890790292741c8186201a536b6bb6a78d02dd
   Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
-  SwiftGen: e5b047067aa84082826a0c4f1c4c2ddc95bcf74c
+  SwiftGen: f872ca75cbd17bf7103c17f13dcfa0d9a15667b0
   SwiftMessages: 8b3cc68dba2f1c91aac1a74c90b10287aac35371
   Turf: c6bdf62d6a70c647874f295dd1cf4eefc0c3e9e6
 
-PODFILE CHECKSUM: 948fdc657356f90dc8f7211f57232aae77442a70
+PODFILE CHECKSUM: 6e72ae10a21e6be5e45289fb3a406867b5c3c130
 
 COCOAPODS: 1.6.1
