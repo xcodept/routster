@@ -10,3 +10,10 @@ xcassets:
   outputs:
     - templateName: swift4
       output: Assets.swift
+ib:
+  inputs: Base.lproj/Main.storyboard
+  outputs:
+    - templateName: scenes-swift4
+      output: StoryboardScenes.swift
+    - templateName: segues-swift4
+      output: StoryboardSegues.swift

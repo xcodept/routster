@@ -84,7 +84,7 @@ class MapViewController: RoutsterViewController {
             }
         } else {
             // User is not authenticated
-            self.performSegue(withIdentifier: "presentLoginViewController", sender: self)
+            self.performSegue(withIdentifier: StoryboardSegue.Main.presentLoginViewController.rawValue, sender: self)
         }
     }
     
@@ -217,7 +217,7 @@ class MapViewController: RoutsterViewController {
     
     // MARK: - Action methods
     @IBAction func toursButtonDidClicked(_ sender: Any) {
-        self.performSegue(withIdentifier: "presentToursViewController", sender: self)
+        self.performSegue(withIdentifier: StoryboardSegue.Main.presentToursViewController.rawValue, sender: self)
     }
     
     @IBAction func logoutButtonDidClicked(_ sender: Any) {
@@ -254,7 +254,7 @@ extension MapViewController: MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         let filteredRoutes = self.routes.filter( { CLLocationCoordinate2D(latitude: $0.tour.startpoint.y, longitude: $0.tour.startpoint.x) == annotation.coordinate } )
         print(filteredRoutes)
-        self.performSegue(withIdentifier: "presentTourViewController", sender: filteredRoutes)
+        self.performSegue(withIdentifier: StoryboardSegue.Main.presentTourViewController.rawValue, sender: filteredRoutes)
     }
 }
 
