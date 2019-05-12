@@ -12,7 +12,7 @@ import MapboxCoreNavigation
 import MapboxNavigation
 import MapboxDirections
 
-class MapViewController: UIViewController {
+class MapViewController: RoutsterViewController {
     
     // MARK: - Typealis
     typealias CompletionTours = ([Tour]?, Error?) -> Void

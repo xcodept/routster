@@ -9,7 +9,7 @@
 import UIKit
 import LGButton
 
-class LoginViewController: UIViewController {
+class LoginViewController: RoutsterViewController {
 
     // MARK: - Outlets
     @IBOutlet weak var usernameTextField: UITextField! {

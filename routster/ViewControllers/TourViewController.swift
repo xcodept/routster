@@ -19,7 +19,7 @@ protocol TourViewControllerDelegate {
 }
 
 // MARK: - TourViewController
-class TourViewController: UIViewController {
+class TourViewController: RoutsterViewController {
 
     // MARK: - Properties
     private var tour: Tour?
