@@ -22,6 +22,7 @@ def pods
   
   # Code Generator / Analyser
   pod 'SwiftGen', '~> 6.0'
+  pod 'Reusable', '~> 4.1'
   
 end
 
