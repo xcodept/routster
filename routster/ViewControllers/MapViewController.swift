@@ -15,7 +15,6 @@ class MapViewController: RoutsterViewController {
     
     // MARK: - Typealis
     typealias CompletionTours = (APIManager.ToursResult) -> Void
-    typealias AliasRoute = (tour: Tour, route: Route, sourceIdentifier: String, layerIdentifier: String)
     
     // MARK: - Properties
     private var tours: [Tour]?    {
@@ -24,7 +23,6 @@ class MapViewController: RoutsterViewController {
             self.messageView.isHidden = selectedTours.count > 0 ? true : false
         }
     }
-    private var routes = [AliasRoute]()
     fileprivate var updatedUserLocation = false
     
     // MARK: - Outlets
@@ -63,22 +61,22 @@ class MapViewController: RoutsterViewController {
     private func configureView() {
         if let username = UserDefaultsService.id, let password = UserDefaultsService.password {
             // User is authenticated
-            if let tours = self.tours {
-                self.hideUnselectedTours(tours: tours)
-                self.displaySelectedTours(tours: tours)
+            if let _ = self.tours {
+                self.hideUnselectedTours()
+                self.displaySelectedTours()
             } else {
                 self.loadTours(username: username, password: password) { [weak self]  (toursResult) in
                     switch toursResult {
                     case .success(let tours):
                         self?.tours = tours
-                        self?.hideUnselectedTours(tours: tours)
-                        self?.displaySelectedTours(tours: tours)
+                        self?.hideUnselectedTours()
+                        self?.displaySelectedTours()
                     case .error(let error):
                         guard let code = error.code, let errorMessage = error.error else  {
-                            AlertMessageService.showAlertBottom(title: L10n.error.localizedUppercase, body: error.message, icon: "", theme: .error)
+                            AlertMessageService.showAlertBottom(title: L10n.error.capitalized, body: error.message, icon: "", theme: .error)
                             return
                         }
-                        AlertMessageService.showAlertBottom(title: "\(L10n.error.localizedUppercase): \(code)/\(errorMessage)", body: error.message, icon: "", theme: .error)
+                        AlertMessageService.showAlertBottom(title: "\(L10n.error.capitalized): \(code)/\(errorMessage)", body: error.message, icon: "", theme: .error)
                     }
                 }
             }
@@ -98,35 +96,39 @@ class MapViewController: RoutsterViewController {
     }
     
     // MARK: -- UI
-    private func displaySelectedTours(tours: [Tour]) {
+    private func displaySelectedTours() {
+        
+        guard let userLocationCoordinate = self.mapView.userLocation?.coordinate, CLLocationCoordinate2DIsValid(userLocationCoordinate) == true else {
+            AlertMessageService.showAlertBottom(title: L10n.error.capitalized, body: L10n.locationAccess, icon: "📍", theme: .error)
+            return
+        }
+        
+        guard let tours = self.tours else { return }
         for tour in tours where tour.isSelected == true {
-            let filteredRoutes = self.routes.filter( { $0.tour.id == tour.id } )
-            if filteredRoutes.count == 0, let userLocationCoordinate = self.mapView.userLocation?.coordinate, CLLocationCoordinate2DIsValid(userLocationCoordinate) == true {
-                let destinationCoordinate = CLLocationCoordinate2D(latitude: tour.startpoint.y, longitude: tour.startpoint.x)
+            if let _ = tour.routes {
+                self.drawTour(tour: tour)
+            } else {
+                let destinationLocationCoordinate = CLLocationCoordinate2D(latitude: tour.startpoint.y, longitude: tour.startpoint.x)
                 self.calculateRoute(from: userLocationCoordinate,
-                                    to: destinationCoordinate,
+                                    to: destinationLocationCoordinate,
                                     completion: { [unowned self] (routes, error) in
                                         if let routes = routes {
-                                            self.drawTour(tour: tour, routes: routes)
+                                            guard var tours = self.tours, let index = tours.firstIndex(where: {$0.id == tour.id}) else { return }
+                                            tours[index].routes = routes
+                                            self.tours = tours
+                                            self.drawTour(tour: tours[index])
                                         } else if let error = error {
-                                            AlertMessageService.showAlertBottom(title: L10n.error.localizedUppercase, body: "\(L10n.unexpectedError) - \(error.localizedDescription)", icon: "🦠", theme: .error)
+                                            AlertMessageService.showAlertBottom(title: L10n.error.capitalized, body: "\(L10n.unexpectedError) - \(error.localizedDescription)", icon: "🦠", theme: .error)
                                         } else {
                                             // TODO: - error handling
                                         }
-                                        
-//                                        if let lastTour = self.tours?.filter({$0.isSelected == true}).last, lastTour.id == tour.id {
-//                                            if let annotations = self.mapView.annotations {
-//                                                self.mapView.showAnnotations(annotations, animated: true)
-//                                            }
-//                                        }
                 })
-            } else if let userLocationCoordinate = self.mapView.userLocation?.coordinate, CLLocationCoordinate2DIsValid(userLocationCoordinate) == false {
-                AlertMessageService.showAlertBottom(title: L10n.error.localizedUppercase, body: L10n.locationAccess, icon: "📍", theme: .error)
             }
         }
     }
     
-    private func hideUnselectedTours(tours: [Tour]) {
+    private func hideUnselectedTours() {
+        guard let tours = self.tours else { return }
         for tour in tours where tour.isSelected == false {
             self.undrawTour(tour: tour)
         }
@@ -152,43 +154,42 @@ class MapViewController: RoutsterViewController {
     }
     
     // MARK: -- UI
-    func drawTour(tour: Tour, routes: [Route]) {
-        let randomColor = UIColor.randomColor
+    internal func drawTour(tour: Tour) {
         
+        guard let routes = tour.routes else { return }
+        
+        let randomColor = UIColor.randomColor
         let point = MGLPointAnnotation()
         point.title = tour.name
         point.coordinate = CLLocationCoordinate2D(latitude: tour.startpoint.y, longitude: tour.startpoint.x)
         self.mapView.addAnnotation(point)
         
-        for route in routes {
+        for (index, route) in routes.enumerated() {
             guard let routeCoordinates = route.coordinates else { return }
-            let polyline = MGLPolylineFeature(coordinates: routeCoordinates, count: route.coordinateCount)
             
-            let random = Int.random(in: 0 ..< Int.max)
-            let sourceIdentifier = "route-source-\(tour.id)-\(random)"
-            let styleIdentifier = "route-style-\(tour.id)-\(random)"
-            if let source = self.mapView.style?.source(withIdentifier: sourceIdentifier) as? MGLShapeSource {
+            let polyline = MGLPolylineFeature(coordinates: routeCoordinates, count: route.coordinateCount)
+            let routeIdentifier = "route-\(tour.id)-\(index)"
+            
+            if let source = self.mapView.style?.source(withIdentifier: routeIdentifier) as? MGLShapeSource {
                 source.shape = polyline
             } else {
-                let source = MGLShapeSource(identifier: sourceIdentifier, features: [polyline], options: nil)
-                
-                let lineStyle = MGLLineStyleLayer(identifier: styleIdentifier, source: source)
-                lineStyle.lineColor = NSExpression(forConstantValue: randomColor)
+                let source = MGLShapeSource(identifier: routeIdentifier, features: [polyline], options: nil)
+                let lineStyle = MGLLineStyleLayer(identifier: routeIdentifier, source: source)
+                lineStyle.lineColor = NSExpression(forConstantValue: randomColor.withAlphaComponent(1.0 / CGFloat(index)))
                 lineStyle.lineWidth = NSExpression(forConstantValue: 3)
                 
                 self.mapView.style?.addSource(source)
                 self.mapView.style?.addLayer(lineStyle)
             }
-            
-            self.routes.append((tour, route, sourceIdentifier, styleIdentifier))
         }
     }
 
     func undrawTour(tour: Tour) {
-        let filteredRoutes = self.routes.filter( { $0.tour.id == tour.id } )
-        filteredRoutes.forEach { (tour, route, sourceIdentifier, layerIdentifier) in
-            guard let source = self.mapView.style?.source(withIdentifier: sourceIdentifier),
-                let layer = self.mapView.style?.layer(withIdentifier: layerIdentifier) else {
+        guard let routes = tour.routes else { return }
+        for (index, _) in routes.enumerated() {
+            let routeIdentifier = "route-\(tour.id)-\(index)"
+            guard let source = self.mapView.style?.source(withIdentifier: routeIdentifier),
+                let layer = self.mapView.style?.layer(withIdentifier: routeIdentifier) else {
                 return
             }
             self.mapView.style?.removeSource(source)
@@ -199,7 +200,6 @@ class MapViewController: RoutsterViewController {
                 self.mapView.removeAnnotation(annotation)
             })
         }
-        self.routes.removeAll(where: { $0.tour.id == tour.id })
     }
     
     // MARK: - Segue methods
@@ -207,11 +207,8 @@ class MapViewController: RoutsterViewController {
         if let toursViewController = segue.destination as? ToursViewController {
             toursViewController.tours = self.tours
             toursViewController.delegate = self
-        } else if let tourViewController = segue.destination as? TourViewController, let routes = sender as? [AliasRoute] {
-            for route in routes {
-                tourViewController.addRoute(route.route)
-                tourViewController.setTour(route.tour) // *not perforant, because the variable is overwritten several times.*
-            }
+        } else if let tourViewController = segue.destination as? TourViewController, let tour = sender as? Tour {
+            tourViewController.tour = tour
         }
     }
     
@@ -221,12 +218,8 @@ class MapViewController: RoutsterViewController {
     }
     
     @IBAction func logoutButtonDidClicked(_ sender: Any) {
-        AlertMessageService.showAlertBottom(title: L10n.note, body: L10n.loggedOutSuccessfully, icon: "🚪", theme: .info)
-        
-        UserDefaultsService.id = nil
-        UserDefaultsService.password = nil
-        UserDefaultsService.email = nil
-        
+        AlertMessageService.showAlertBottom(title: L10n.note.capitalized, body: L10n.loggedOutSuccessfully, icon: "🚪", theme: .info)
+        UserDefaultsService.logout()
         self.configureView()
     }
 }
@@ -252,9 +245,8 @@ extension MapViewController: MGLMapViewDelegate {
     
     // - Annotations
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-        let filteredRoutes = self.routes.filter( { CLLocationCoordinate2D(latitude: $0.tour.startpoint.y, longitude: $0.tour.startpoint.x) == annotation.coordinate } )
-        print(filteredRoutes)
-        self.performSegue(withIdentifier: StoryboardSegue.Main.presentTourViewController.rawValue, sender: filteredRoutes)
+        guard let filteredTours = self.tours?.filter( { CLLocationCoordinate2D(latitude: $0.startpoint.y, longitude: $0.startpoint.x) == annotation.coordinate } ), let filteredTour = filteredTours.first else { return }
+        self.performSegue(withIdentifier: StoryboardSegue.Main.presentTourViewController.rawValue, sender: filteredTour)
     }
 }
 

@@ -17,17 +17,27 @@ protocol ToursViewControllerDelegate {
 // MARK: - ToursViewController
 class ToursViewController: RoutsterViewController {
 
+    // MARK: - Lazy
+    private lazy var dataSource: ToursDataSource = {
+        
+        return ToursDataSource(didSelectHandler: { [weak self] (item) in
+                guard var tours = self?.tours, let index = tours.firstIndex(where: {$0.id == item.id}) else { return }
+                tours[index].isSelected = !tours[index].isSelected
+                self?.tours = tours
+            }, updateUIHandler: { [weak self] (_, _) in
+                self?.tableView.reloadData()
+        })
+    }()
+    
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView! {
         didSet {
-            self.tableView.register(UINib(nibName: "TourTableViewCell", bundle: nil), forCellReuseIdentifier: "TourCellReuseIdentifier")
+            self.dataSource.configure(tableView: self.tableView)
         }
     }
     
     // MARK: - Properties
     internal var tours: [Tour]?
-    private var dataSource: UITableViewDataSource?
-    
     internal var delegate: ToursViewControllerDelegate?
     
     // MARK: - View Lifecycle
@@ -35,10 +45,7 @@ class ToursViewController: RoutsterViewController {
         super.viewDidLoad()
         
         if let tours = self.tours {
-            print(tours)
-            self.dataSource = TableViewDataSource.make(for: tours)
-            self.tableView.dataSource = self.dataSource
-            self.tableView.delegate = self
+            self.dataSource.set(dataSource: tours)
         }
     }
     
@@ -46,26 +53,5 @@ class ToursViewController: RoutsterViewController {
     @IBAction func closeButtonDidClicked(_ sender: Any) {
         self.delegate?.toursViewControllerWillClose(tours: self.tours)
         self.dismiss(animated: true, completion: nil)
-    }
-}
-
-// MARK: - UITableViewDelegate
-extension ToursViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return 86.0
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath), let count = self.tours?.count, count > indexPath.row {
-            if let isSelected = self.tours?[indexPath.row].isSelected, isSelected == true {
-                self.tours?[indexPath.row].isSelected = false
-                cell.accessoryType = .none
-            } else {
-                self.tours?[indexPath.row].isSelected = true
-                cell.accessoryType = .checkmark
-            }
-        }
     }
 }

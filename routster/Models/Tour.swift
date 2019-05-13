@@ -6,6 +6,8 @@
 //  Copyright © 2019 codefuse. All rights reserved.
 //
 
+import MapboxDirections
+
 struct Tour: Codable {
     let id: Int
     let name: String
@@ -13,5 +15,9 @@ struct Tour: Codable {
     let distance: Double
     let duration: Double
     let sport: String
-    var isSelected: Bool?
+    
+    var isSelected: Bool = false
+    var routes: [Route]?
+    
+    private enum CodingKeys: String, CodingKey { case id, name, startpoint, distance, duration, sport }
 }

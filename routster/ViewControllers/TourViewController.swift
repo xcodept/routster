@@ -10,26 +10,29 @@ import UIKit
 import MapboxNavigation
 import MapboxDirections
 
-// MARK: - TourViewControllerDelegate
-protocol TourViewControllerDelegate {
-    
-    func tourViewControllerWillClose(tour: Tour)
-}
-
 // MARK: - TourViewController
 class TourViewController: RoutsterViewController {
+    
+    // MARK: - Lazy
+    private lazy var dataSource: TourDataSource = {
+        
+        return TourDataSource(didSelectHandler: { [weak self] (item) in
+                let navigationViewController = NavigationViewController(for: item)
+                self?.present(navigationViewController, animated: true, completion: nil)
+            }, updateUIHandler: { [weak self] (_, _) in
+                self?.tableView.reloadData()
+        })
+    }()
 
     // MARK: - Properties
-    private var tour: Tour?
-    private var routes: [Route]?
-    private var dataSource: UITableViewDataSource?
+    internal var tour: Tour?
     
     // MARK: - Outlets
     @IBOutlet weak var tourNameLabel: UILabel!
     @IBOutlet weak var tourDetailLabel: UILabel!
     @IBOutlet weak var tableView: UITableView! {
         didSet {
-            self.tableView.register(UINib(nibName: "RouteTableViewCell", bundle: nil), forCellReuseIdentifier: "RouteCellReuseIdentifier")
+            self.dataSource.configure(tableView: self.tableView)
         }
     }
     
@@ -37,11 +40,8 @@ class TourViewController: RoutsterViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let routes = self.routes {
-            print(routes)
-            self.dataSource = TableViewDataSource.make(for: routes)
-            self.tableView.dataSource = self.dataSource
-            self.tableView.delegate = self
+        if let routes = self.tour?.routes {
+            self.dataSource.set(dataSource: routes)
         }
         if let tour = self.tour {
             self.tourNameLabel.text = tour.name
@@ -49,46 +49,8 @@ class TourViewController: RoutsterViewController {
         }
     }
     
-    // MARK: - Accessors
-    internal func setTour(_ tour: Tour) {
-        self.tour = tour
-    }
-    
-    internal func setRoutes(_ routes: [Route]) {
-        self.routes = routes
-    }
-    
-    internal func addRoute(_ route: Route) {
-        if self.routes != nil {
-            self.routes?.append(route)
-        } else {
-            self.routes = [route]
-        }
-    }
-    
     // MARK: - Action methods
     @IBAction func closeButtonDidClicked(_ sender: Any) {
-        self.dismiss(animated: true) {
-            //
-        }
-    }
-}
-
-// MARK: - UITableViewDelegate
-extension TourViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return 60.0
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let _ = tableView.cellForRow(at: indexPath), let routes = self.routes, routes.count > indexPath.row {
-            let route = routes[indexPath.row]
-            let navigationViewController = NavigationViewController(for: route)
-            self.present(navigationViewController, animated: true) {
-                //
-            }
-        }
+        self.dismiss(animated: true, completion: nil)
     }
 }

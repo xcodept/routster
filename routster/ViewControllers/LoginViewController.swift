@@ -57,9 +57,9 @@ class LoginViewController: RoutsterViewController {
     
     private func handle(error: Error) {
         if let code = error.code, let errorMessage = error.error {
-            AlertMessageService.showAlertBottom(title: "\(L10n.error.localizedUppercase): \(code)/\(errorMessage)", body: error.message, icon: nil, theme: .error)
+            AlertMessageService.showAlertBottom(title: "\(L10n.error.capitalized): \(code)/\(errorMessage)", body: error.message, icon: nil, theme: .error)
         } else {
-            AlertMessageService.showAlertBottom(title: L10n.error.localizedUppercase, body: error.message, icon: nil, theme: .error)
+            AlertMessageService.showAlertBottom(title: L10n.error.capitalized, body: error.message, icon: nil, theme: .error)
         }
         self.loginButton.isLoading = false
     }
@@ -80,7 +80,7 @@ class LoginViewController: RoutsterViewController {
     }
     
     @IBAction func socialMediaButtonDidClicked(_ sender: Any) {
-        AlertMessageService.showAlertBottom(title: L10n.note.localizedUppercase, body: L10n.featureNotImplemented, icon: "🗳", theme: .info)
+        AlertMessageService.showAlertBottom(title: L10n.note.capitalized, body: L10n.featureNotImplemented, icon: "🗳", theme: .info)
     }
 }
 

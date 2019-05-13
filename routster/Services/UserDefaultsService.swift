@@ -100,4 +100,11 @@ class UserDefaultsService {
             }
         }
     }
+    
+    // MARK: -
+    public class func logout() {
+        UserDefaultsService.id = nil
+        UserDefaultsService.password = nil
+        UserDefaultsService.email = nil
+    }
 }
