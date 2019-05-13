@@ -18,6 +18,9 @@ struct Tour: Codable {
     
     var isSelected: Bool = false
     var routes: [Route]?
+    var startCoordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: startpoint.y, longitude: startpoint.x)
+    }
     
     private enum CodingKeys: String, CodingKey { case id, name, startpoint, distance, duration, sport }
 }

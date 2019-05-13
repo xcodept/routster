@@ -108,9 +108,8 @@ class MapViewController: RoutsterViewController {
             if let _ = tour.routes {
                 self.drawTour(tour: tour)
             } else {
-                let destinationLocationCoordinate = CLLocationCoordinate2D(latitude: tour.startpoint.y, longitude: tour.startpoint.x)
                 self.calculateRoute(from: userLocationCoordinate,
-                                    to: destinationLocationCoordinate,
+                                    to: tour.startCoordinate,
                                     completion: { [unowned self] (routes, error) in
                                         if let routes = routes {
                                             guard var tours = self.tours, let index = tours.firstIndex(where: {$0.id == tour.id}) else { return }
@@ -161,20 +160,21 @@ class MapViewController: RoutsterViewController {
         let randomColor = UIColor.randomColor
         let point = MGLPointAnnotation()
         point.title = tour.name
-        point.coordinate = CLLocationCoordinate2D(latitude: tour.startpoint.y, longitude: tour.startpoint.x)
+        point.coordinate = tour.startCoordinate
         self.mapView.addAnnotation(point)
         
         for (index, route) in routes.enumerated() {
             guard let routeCoordinates = route.coordinates else { return }
             
             let polyline = MGLPolylineFeature(coordinates: routeCoordinates, count: route.coordinateCount)
-            let routeIdentifier = "route-\(tour.id)-\(index)"
+            let routeSourceIdentifier = "route-source-\(tour.id)-\(index)"
+            let routeStyleIdentifier = "route-style-\(tour.id)-\(index)"
             
-            if let source = self.mapView.style?.source(withIdentifier: routeIdentifier) as? MGLShapeSource {
+            if let source = self.mapView.style?.source(withIdentifier: routeSourceIdentifier) as? MGLShapeSource {
                 source.shape = polyline
             } else {
-                let source = MGLShapeSource(identifier: routeIdentifier, features: [polyline], options: nil)
-                let lineStyle = MGLLineStyleLayer(identifier: routeIdentifier, source: source)
+                let source = MGLShapeSource(identifier: routeSourceIdentifier, features: [polyline], options: nil)
+                let lineStyle = MGLLineStyleLayer(identifier: routeStyleIdentifier, source: source)
                 lineStyle.lineColor = NSExpression(forConstantValue: randomColor.withAlphaComponent(1.0 / CGFloat(index)))
                 lineStyle.lineWidth = NSExpression(forConstantValue: 3)
                 
@@ -187,19 +187,21 @@ class MapViewController: RoutsterViewController {
     func undrawTour(tour: Tour) {
         guard let routes = tour.routes else { return }
         for (index, _) in routes.enumerated() {
-            let routeIdentifier = "route-\(tour.id)-\(index)"
-            guard let source = self.mapView.style?.source(withIdentifier: routeIdentifier),
-                let layer = self.mapView.style?.layer(withIdentifier: routeIdentifier) else {
+            let routeSourceIdentifier = "route-source-\(tour.id)-\(index)"
+            let routeStyleIdentifier = "route-style-\(tour.id)-\(index)"
+            
+            guard let source = self.mapView.style?.source(withIdentifier: routeSourceIdentifier),
+                let layer = self.mapView.style?.layer(withIdentifier: routeStyleIdentifier) else {
                 return
             }
-            self.mapView.style?.removeSource(source)
             self.mapView.style?.removeLayer(layer)
-            
-            let annotations = self.mapView.annotations?.filter({$0.coordinate == CLLocationCoordinate2D(latitude: tour.startpoint.y, longitude: tour.startpoint.x)})
-            annotations?.forEach({ (annotation) in
-                self.mapView.removeAnnotation(annotation)
-            })
+            self.mapView.style?.removeSource(source)
         }
+        
+        let annotations = self.mapView.annotations?.filter({ $0.coordinate == tour.startCoordinate })
+        annotations?.forEach({ (annotation) in
+            self.mapView.removeAnnotation(annotation)
+        })
     }
     
     // MARK: - Segue methods
@@ -245,7 +247,7 @@ extension MapViewController: MGLMapViewDelegate {
     
     // - Annotations
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-        guard let filteredTours = self.tours?.filter( { CLLocationCoordinate2D(latitude: $0.startpoint.y, longitude: $0.startpoint.x) == annotation.coordinate } ), let filteredTour = filteredTours.first else { return }
+        guard let filteredTours = self.tours?.filter( { $0.startCoordinate == annotation.coordinate } ), let filteredTour = filteredTours.first else { return }
         self.performSegue(withIdentifier: StoryboardSegue.Main.presentTourViewController.rawValue, sender: filteredTour)
     }
 }
