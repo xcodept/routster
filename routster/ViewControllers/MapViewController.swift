@@ -219,7 +219,7 @@ class MapViewController: RoutsterViewController {
     
     @IBAction func logoutButtonDidClicked(_ sender: Any) {
         AlertMessageService.showAlertBottom(title: L10n.note.capitalized, body: L10n.loggedOutSuccessfully, icon: "🚪", theme: .info)
-        UserDefaultsService.logout()
+        UserDefaultsService.removeUserInformation()
         self.configureView()
     }
 }

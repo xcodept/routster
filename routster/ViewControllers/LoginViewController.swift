@@ -46,9 +46,7 @@ class LoginViewController: RoutsterViewController {
     
     // MARK: - Configuration handler
     private func handle(user: User) {
-        UserDefaultsService.email = user.email
-        UserDefaultsService.id = user.username
-        UserDefaultsService.password = user.password
+        UserDefaultsService.storeUserInformation(email: user.email, username: user.username, password: user.password)
         
         self.dismiss(animated: true, completion: {
             self.loginButton.isLoading = false
