@@ -2,8 +2,8 @@
 //  RoutsterViewController.swift
 //  routster
 //
-//  Created by studium on 12.05.19.
-//  Copyright © 2019 xcodept. All rights reserved.
+//  Created by codefuse on 12.05.19.
+//  Copyright © 2019 codefuse. All rights reserved.
 //
 
 import UIKit

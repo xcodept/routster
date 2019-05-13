@@ -20,7 +20,7 @@ class UserDefaultsService {
     private static let iv = "drowssapdrowssap"
     
     // MARK: - Properties
-    public class var email: String? /* user generated */ {
+    private (set) class var email: String? /* user generated */ {
         get {
             guard let cipher = Defaults.shared.get(for: UserDefaultsService.emailKey) else { return nil }
             
@@ -47,7 +47,7 @@ class UserDefaultsService {
         }
     }
     
-    public class var id: String? /* api generated */ {
+    private (set) class var id: String? /* api generated */ {
         get {
             guard let cipher = Defaults.shared.get(for: UserDefaultsService.idKey) else { return nil }
             
@@ -74,7 +74,7 @@ class UserDefaultsService {
         }
     }
     
-    public class var password: String? /* api generated */ {
+    private (set) class var password: String? /* api generated */ {
         get {
             guard let cipher = Defaults.shared.get(for: UserDefaultsService.passwordKey) else { return nil }
             
@@ -99,5 +99,18 @@ class UserDefaultsService {
                 // MARK: - error handling
             }
         }
+    }
+    
+    // MARK: -
+    public class func removeUserInformation() {
+        UserDefaultsService.id = nil
+        UserDefaultsService.password = nil
+        UserDefaultsService.email = nil
+    }
+    
+    public class func storeUserInformation(email: String, username: String, password: String) {
+        UserDefaultsService.email = email
+        UserDefaultsService.id = username
+        UserDefaultsService.password = password
     }
 }

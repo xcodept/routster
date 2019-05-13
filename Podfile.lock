@@ -20,6 +20,11 @@ PODS:
   - MapboxNavigationNative (6.1.3)
   - MapboxSpeech (0.1.1)
   - Polyline (4.2.1)
+  - Reusable (4.1.0):
+    - Reusable/Storyboard (= 4.1.0)
+    - Reusable/View (= 4.1.0)
+  - Reusable/Storyboard (4.1.0)
+  - Reusable/View (4.1.0)
   - Solar (2.1.0)
   - SwiftGen (6.1.0)
   - SwiftMessages (6.0.2):
@@ -33,6 +38,7 @@ DEPENDENCIES:
   - DefaultsKit (~> 0.2)
   - LGButton (~> 1.1)
   - MapboxNavigation (~> 0.32)
+  - Reusable (~> 4.1)
   - SwiftGen (~> 6.0)
   - SwiftMessages (~> 6.0)
 
@@ -50,6 +56,7 @@ SPEC REPOS:
     - MapboxNavigationNative
     - MapboxSpeech
     - Polyline
+    - Reusable
     - Solar
     - SwiftGen
     - SwiftMessages
@@ -68,11 +75,12 @@ SPEC CHECKSUMS:
   MapboxNavigationNative: c7340cdfcb28f88aa02b6e3896151f4cd897f323
   MapboxSpeech: 59b3984d3f433a443d24acf53097f918c5cc70f9
   Polyline: 0e9890790292741c8186201a536b6bb6a78d02dd
+  Reusable: 82be188f29d96dc5eff0db7b2393bcc08d2cdd5b
   Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
   SwiftGen: f872ca75cbd17bf7103c17f13dcfa0d9a15667b0
   SwiftMessages: 8b3cc68dba2f1c91aac1a74c90b10287aac35371
   Turf: c6bdf62d6a70c647874f295dd1cf4eefc0c3e9e6
 
-PODFILE CHECKSUM: 6e72ae10a21e6be5e45289fb3a406867b5c3c130
+PODFILE CHECKSUM: 0e5616cb95ac53dccb48ff0b01e2acce846e43a9
 
 COCOAPODS: 1.6.1

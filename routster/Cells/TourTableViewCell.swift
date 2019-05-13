@@ -7,19 +7,21 @@
 //
 
 import UIKit
+import Reusable
 
-class TourTableViewCell: UITableViewCell {
+class TourTableViewCell: UITableViewCell, NibReusable {
 
     // MARK: - Outlets
-    @IBOutlet weak var tourNameLabel: UILabel!
-    @IBOutlet weak var tourInfoLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var infoLabel: UILabel!
     
     // MARK: - Properties
-
-    // MARK: - Methods
-    public func set(name: String, distance: Double, duration: Double, sport: String, isSelected: Bool?) {
-        self.tourNameLabel.text = name
-        self.tourInfoLabel.text = "\(String(format: "%C", UniChar(0xf140))): \((distance/1000).rounded(toPlaces: 2)) km \(String(format: "%C", UniChar(0xf017))): \((duration/60/60).rounded(toPlaces: 2)) h \(String(format: "%C", UniChar(0xf1ae))): \(sport)"
-        self.accessoryType = (isSelected == true) ? .checkmark : .none
+    internal var model: Tour? {
+        didSet {
+            guard let model = model else { return }
+            self.nameLabel.text = model.name
+            self.infoLabel.text = "\(String(format: "%C", UniChar(0xf140))): \((model.distance/1000).rounded(toPlaces: 2)) km \(String(format: "%C", UniChar(0xf017))): \((model.duration/60/60).rounded(toPlaces: 2)) h \(String(format: "%C", UniChar(0xf1ae))): \(model.sport)"
+            self.accessoryType = (model.isSelected == true) ? .checkmark : .none
+        }
     }
 }
